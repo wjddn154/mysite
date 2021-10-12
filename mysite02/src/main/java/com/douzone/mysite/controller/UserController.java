@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.douzone.mysite.mvc.user.UserActionFactory;
+import com.douzone.web.mvc.Action;
+import com.douzone.web.mvc.ActionFactory;
 import com.douzone.web.util.MvcUtil;
 
 public class UserController extends HttpServlet {
@@ -16,19 +19,11 @@ public class UserController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		System.out.println("User Controller Called");
 		
-		String action = request.getParameter("a");
+		String actionName = request.getParameter("a");
 		
-		if("joinform".equals(action)) {
-			MvcUtil.forward("/WEB-INF/views/user/joinform.jsp", request, response);
-		
-		} else if("join".equals(action)) {
-//			MvcUtil.forward("/WEB-INF/views/user/joinform.jsp", request, response);
-		
-		} else {
-			MvcUtil.redirect("/mysite02", request, response);
-//			MvcUtil.forward("/WEB-INF/views/main/index.jsp", request, response);
-		}
-		
+		ActionFactory af = new UserActionFactory();
+		Action action = af.getAction(actionName);
+		action.execute(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
