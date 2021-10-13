@@ -13,12 +13,8 @@ public class GuestbookController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Guestbook Controller Called");
-
 		String actionName = request.getParameter("a");
 
-		request.getServletContext().setAttribute(actionName, actionName);
-		
 		Action action = new GuestbookActionFactory().getAction(actionName);
 		action.execute(request, response);
 	}

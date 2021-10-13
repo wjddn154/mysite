@@ -17,7 +17,7 @@ public class DeleteAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String no = request.getParameter("no");
 		String password = request.getParameter("password");
-		
+
 		GuestbookVO vo = new GuestbookVO();
 		vo.setNo(Long.parseLong(no));
 		vo.setPassword(password);
