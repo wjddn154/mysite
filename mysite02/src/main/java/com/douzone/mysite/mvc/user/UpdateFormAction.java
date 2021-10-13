@@ -22,7 +22,6 @@ public class UpdateFormAction implements Action {
 		UserVO authUser = (UserVO)session.getAttribute("authUser");
 		if(authUser == null) {
 			MvcUtil.redirect(request.getContextPath(), request, response);
-			
 			return;
 		}
 		////////////////// 보안 끝 //////////////////////
