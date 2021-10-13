@@ -8,14 +8,23 @@
   <artifactId>mysite02</artifactId>
   <packaging>war</packaging>
   
-  <dependencies>
-		<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
+  
+ 	 <dependencies>
+		<!-- jstl -->
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
+		</dependency>
+	  
+		<!-- mariadb jdbc -->
 		<dependency>
 		    <groupId>org.mariadb.jdbc</groupId>
 		    <artifactId>mariadb-java-client</artifactId>
 		    <version>2.7.2</version>
 		</dependency>
 	</dependencies>
+
 
 	<build>
 		<finalName>mysite02</finalName>
