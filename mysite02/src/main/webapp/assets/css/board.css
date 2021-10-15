@@ -35,7 +35,7 @@ input#kwd	{
 .tbl-ex		{
 	width:100%;
 	margin:10px auto; 
-	border-collapse:collapse;
+	border-collapse:separate;
 	border-bottom:2px solid #333;
 }
 
@@ -55,7 +55,7 @@ input#kwd	{
 
 .tbl-ex td {
 	border-top:1px dotted #333;
-	border-bottom:1px dotted #333; 
+/* 	border-bottom:1px dotted #333;  */
 }
 
 .board-form .tbl-ex td {
@@ -128,7 +128,8 @@ a.del	{
 	display:block;
 	width:20px;
 	height:20px; 
-	background:url("/mysite2/assets/images/recycle.png") no-repeat 0 0;
+	background:url("/mysite02/assets/images/recycle.png") no-repeat 0 0;
+/* 	font-size:5pt; */
 	font-size:0;
 }
 

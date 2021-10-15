@@ -1,24 +1,36 @@
-package com.douzone.mysite.mvc.main;
+package com.douzone.mysite.mvc.board;
 
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.douzone.mysite.vo.UserVO;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.util.MvcUtil;
 
-public class MainAction implements Action {
+public class DeleteAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		//상위 데이터 update 작업 추가
 		
-		MvcUtil.forward("main/index", request, response);
 		
 		
+		
+		
+		
+		//board delete 작업 추가
+
+		
+		
+		
+		
+		
+		
+		
+		MvcUtil.redirect(request.getContextPath() + "/board", request, response);
 	}
 
 }
