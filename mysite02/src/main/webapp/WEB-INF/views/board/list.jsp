@@ -35,16 +35,46 @@
 							<td>${count-status.index }</td>
 							<c:choose>
 								<c:when test="${vo.depth == 0}">
-									<td style="text-align:left; padding-left:0px"><a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</td>
+									
+									<c:choose>
+										<c:when test='${vo.hit != -1 }'>
+											<td style="text-align:left; padding-left:0px"><a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a></td>
+										</c:when>
+										<c:otherwise>
+											<td style="text-align:left; padding-left:0px">${vo.title }</td>
+										</c:otherwise>
+									</c:choose>
+									
+									
+								</c:when>
+								
+								<c:otherwise>
+									<c:choose>
+										<c:when test='${vo.hit != -1 }'>
+											<td style="text-align:left; padding-left:${vo.depth * 20 }px"><img src='${pageContext.request.contextPath }/assets/images/reply.png' /><a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a></td>
+										</c:when>
+										<c:otherwise>
+											<td style="text-align:left; padding-left:${vo.depth * 20 }px"><img src='${pageContext.request.contextPath }/assets/images/reply.png' />${vo.depth} / ${vo.title }</td>
+										</c:otherwise>
+									</c:choose>
+								</c:otherwise>
+								
+							</c:choose>
+							
+							<c:choose>
+								<c:when test='${vo.hit != -1 }'>
+									<td>${vo.userName }</td>
+									<td>${vo.hit }</td>
+									<td>${vo.regDate }</td>
 								</c:when>
 								<c:otherwise>
-									<td style="text-align:left; padding-left:20 * ${vo.depth }px"><img src='${pageContext.request.contextPath }/assets/images/reply.png' /><a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a></td>
+									<td></td>
+									<td></td>
+									<td></td>
 								</c:otherwise>
 							</c:choose>
-							<td>${vo.userName }</td>
-							<td>${vo.hit }</td>
-							<td>${vo.regDate }</td>
-							<c:if test='${vo.userNo == authUser.no}' >
+							
+							<c:if test='${(vo.userNo == authUser.no) && (vo.hit != -1)}' >
 								<td><a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no }" class="del">삭제</a></td>
 							</c:if>
 							<c:if test='${vo.userNo != authUser.no}' >

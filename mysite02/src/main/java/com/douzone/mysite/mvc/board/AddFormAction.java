@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.douzone.mysite.dao.BoardDAO;
+import com.douzone.mysite.vo.BoardVO;
 import com.douzone.mysite.vo.UserVO;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.util.MvcUtil;
@@ -24,13 +26,20 @@ public class AddFormAction implements Action {
 			return;
 		}
 
-		//기존 게시물 order_no 증가시키는작업
-		
-		
 		//새 게시물 insert 하는 작업
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		Long no = authUser.getNo();
+		
+		BoardVO vo = new BoardVO();
+		vo.setTitle(title);
+		vo.setContents(content);
+		vo.setNo(no);
+		
+		new BoardDAO().insert(vo);
 		
 		
-		MvcUtil.redirect(request.getContextPath(), request, response);
+		MvcUtil.redirect(request.getContextPath() + "/board", request, response);
 	}
 
 }

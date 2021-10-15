@@ -37,6 +37,7 @@
 					<c:if test='${(dto.userNo == authUser.no) && (authUser.no != null) }'>
 						<a href="${pageContext.request.contextPath }/board?a=modifyform&no=${dto.no}">글수정</a>
 					</c:if>
+					<a href="${pageContext.request.contextPath }/board?a=addreply&no=${dto.no}">답글</a>
 				</div>
 			</div>
 		</div>

@@ -25,7 +25,6 @@ public class AddAction implements Action {
 			return;
 		}
 		
-		
 		MvcUtil.forward("board/write", request, response);
 
 	}

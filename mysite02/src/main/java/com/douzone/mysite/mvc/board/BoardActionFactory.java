@@ -13,6 +13,10 @@ public class BoardActionFactory extends ActionFactory {
 			action = new AddAction();
 		} else if("addform".equals(actionName)) {
 			action = new AddFormAction();
+		} else if("addreply".equals(actionName)) {
+			action = new AddReplyAction();
+		} else if("addreplyform".equals(actionName)) {
+			action = new AddReplyFormAction();
 		} else if("view".equals(actionName)) {
 			action = new ViewAction();
 		} else if("delete".equals(actionName)) {

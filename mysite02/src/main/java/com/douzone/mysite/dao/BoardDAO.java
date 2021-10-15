@@ -10,8 +10,6 @@ import java.util.List;
 
 import com.douzone.mysite.vo.BoardDTO;
 import com.douzone.mysite.vo.BoardVO;
-import com.douzone.mysite.vo.GuestbookVO;
-import com.douzone.mysite.vo.UserVO;
 
 public class BoardDAO {
 
@@ -110,7 +108,7 @@ public class BoardDAO {
 			
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContents());
-			pstmt.setLong(3, vo.getUserNo());
+			pstmt.setLong(3, vo.getNo());
 			
 			int count = pstmt.executeUpdate();
 			result = count == 1;
@@ -266,7 +264,8 @@ public class BoardDAO {
 
 
 	//조회수 처리
-	public void updateHit(Long no) {
+	public boolean updateHit(Long no) {
+		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -281,7 +280,8 @@ public class BoardDAO {
 				pstmt.setLong(1, no);
 			
 			int count = pstmt.executeUpdate();
-			
+			result = count == 1;			
+
 		} catch (SQLException e) {
 			System.out.println("BoardDAO updateHit() error:" + e);
 		} finally {
@@ -297,11 +297,184 @@ public class BoardDAO {
 			}
 		}		
 		
+		return result;
 	}
 	
 	
-	
-	
+	//게시물 삭제
+	public boolean deleteboard(BoardVO vo) {
+		boolean result = false;
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection();
+			
+				String sql =
+						" update board " + 
+						"    set title=?, hit=?" + 
+						"  where no=?";
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, vo.getTitle());
+				pstmt.setLong(2, vo.getHit());
+				pstmt.setLong(3, vo.getNo());
+			
+			int count = pstmt.executeUpdate();
+			result = count == 1;			
+		} catch (SQLException e) {
+			System.out.println("BoardDAO deleteboard() error:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		
+		return result;
+	}
+
+
+	public BoardVO findHigerBoard(Long checkNo) {
+		BoardVO vo = null;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql =
+				"select no, group_no, order_no, depth" +
+				"  from board" +
+				" where no=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, checkNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Long no = rs.getLong(1);
+				Long groupNo = rs.getLong(2);
+				Long orderNo = rs.getLong(3);
+				Long depth = rs.getLong(4);
+				
+				vo = new BoardVO();
+				vo.setNo(no);
+				vo.setGroupNo(groupNo);
+				vo.setOrderNo(orderNo);
+				vo.setDepth(depth);
+				
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("BoardDAO findHigerBoard() error:" + e);
+		} finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return vo;
+	}
+
+
+	public boolean insertReply(BoardVO vo) {
+		boolean result = false;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection();
+			
+			String sql =
+					"insert into board values (null, ?, ?, 0,  now(), ?, ?, ?, ?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContents());
+			pstmt.setLong(3, vo.getGroupNo());
+			pstmt.setLong(4, vo.getOrderNo());
+			pstmt.setLong(5, vo.getDepth());
+			pstmt.setLong(6, vo.getNo());
+
+			
+			int count = pstmt.executeUpdate();
+			result = count == 1;
+			
+		} catch (SQLException e) {
+			System.out.println("BoardDAO insertreply() error:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		
+		return result;
+		
+	}
+
+
+	public boolean updateParentBoard(BoardVO vo) {
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection();
+			
+				String sql =
+						" update board " + 
+						"    set order_no=?" + 
+						"  where no<=?";
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setLong(1, vo.getOrderNo()+1);
+				pstmt.setLong(2, vo.getNo());
+			
+			int count = pstmt.executeUpdate();
+			result = count == 1;			
+		} catch (SQLException e) {
+			System.out.println("BoardDAO updateParentBoard() error:" + e);
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		
+		return result;
+		
+	}
 	
 	
 	
