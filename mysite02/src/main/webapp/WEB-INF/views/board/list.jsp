@@ -3,6 +3,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -100,30 +104,26 @@
 		
 				<div class="pager">
 					<ul>
-					    <li><a href="javascript:goPage(${page.firstPageNo})" class="first">처음 페이지</a></li>
-					    <li><a href="javascript:goPage(${page.prevPageNo})" class="prev">이전 페이지</a></li>
-					    <span>
+					    <li><a href="${pageContext.request.contextPath }/board?pageno=${page.firstPageNo}" class="first">처음 페이지</a></li>
+					    
+<%-- 					    <c:if test='${param.pageno} !=  }'} --%>
+					    	<li><a href="${pageContext.request.contextPath }/board?pageno=${page.prevPageNo}" class="prev">이전 페이지</a></li>
+<%-- 					    </c:if> --%>
 					        <c:forEach var="i" begin="${page.startPageNo}" end="${page.endPageNo}" step="1">
 					            <c:choose>
 					                <c:when test="${i eq page.pageNo}">
-					                	<li><a href="javascript:goPage(${i})" class="choice">${i}</a></li>
+					                	<li><a href="${pageContext.request.contextPath }/board?pageno=${i}" class="choice">${i}</a></li>
 					                </c:when>
 					                <c:otherwise>
-					                	<li><a href="javascript:goPage(${i})">${i}</a></li>
+					                	<li><a href="${pageContext.request.contextPath }/board?pageno=${i}">${i}</a></li>
 					                </c:otherwise>
 					            </c:choose>
 					        </c:forEach>
-					    </span>
-					    <li><a href="javascript:goPage(${page.nextPageNo})" class="next">다음 페이지</a></li>
-					    <li><a href="javascript:goPage(${page.finalPageNo})" class="last">마지막 페이지</a></li>
+					    <li><a href="${pageContext.request.contextPath }/board?pageno=${page.nextPageNo}" class="next">다음 페이지</a></li>
+					    <li><a href="${pageContext.request.contextPath }/board?pageno=${page.finalPageNo}" class="last">마지막 페이지</a></li>
 				    </ul>
 				</div>
 
-
-				
-				
-				
-				
 							
 				<!-- pager 추가 -->
 				

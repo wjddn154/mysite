@@ -6,8 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.omg.CORBA.UserException;
 import org.springframework.stereotype.Repository;
 
+import com.douzone.mysite.exception.UserRepositoryException;
 import com.douzone.mysite.vo.UserVO;
 
 @Repository
@@ -28,7 +30,7 @@ public class UserRepository {
 		return conn;
 	}
 	
-	public UserVO findByEmailAndPassword(String email, String password) {
+	public UserVO findByEmailAndPassword(String email, String password) throws UserRepositoryException{
 		UserVO vo = null;
 		
 		Connection conn = null;
@@ -158,7 +160,7 @@ public class UserRepository {
 				vo.setGender(rs.getString(4));
 			}
 		} catch (SQLException e) {
-			System.out.println("error:" + e);
+			throw new UserRepositoryException(e.toString());
 		} finally {
 			try {
 				if(rs != null) {
@@ -175,7 +177,7 @@ public class UserRepository {
 			}
 		}
 		
-		return vo;
+		return vo; //정우오빠 바보~~메롱메롱~~
 	}
 
 	public boolean update(UserVO vo) {
