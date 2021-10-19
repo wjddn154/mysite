@@ -27,13 +27,6 @@ public class DeleteAction implements Action {
 		}
 		
 		
-		//상위 데이터 update 작업 추가할 필요 없을
-		
-		
-		
-		
-		
-		
 		//board delete 작업 추가
 		Long no = Long.parseLong(request.getParameter("no"));
 		BoardVO vo = new BoardVO();

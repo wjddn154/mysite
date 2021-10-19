@@ -27,7 +27,7 @@ public class BoardDAO {
 	
 	
 	//join된 결과를 표시하기 위해 dto 사용
-	public List<BoardDTO> findAll() {
+	public List<BoardDTO> findAll(Long pageNo) {
 		List<BoardDTO> list = new ArrayList<>();
 		
 		Connection conn = null;
@@ -41,8 +41,12 @@ public class BoardDAO {
 				"select b.no, b.title, b.contents, b.hit, b.reg_date, b.group_no, b.order_no, b.depth, b.user_no, u.name" +
 				"  from board b, user u" +
 				" where b.user_no = u.no" +
-				" order by b.group_no desc, b.order_no desc, b.depth";
+				" order by b.group_no desc, b.order_no desc, b.depth" +
+				" limit ?, ?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, (pageNo-1) * 10);
+			pstmt.setLong(2, (pageNo) * 10);
+
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -475,6 +479,49 @@ public class BoardDAO {
 		return result;
 		
 	}
+	
+	
+	//전체 게시글 수
+	public int countBoard() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int no = 0;
+
+		try {
+			conn = getConnection();
+			
+			String sql =
+				"select count(*)" +
+				"  from board";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				no = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("BoardDAO countBoard() error:" + e);
+		} finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return no;
+	}
+	
 	
 	
 	
