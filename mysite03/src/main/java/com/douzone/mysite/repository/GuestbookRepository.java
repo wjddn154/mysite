@@ -88,7 +88,7 @@ public class GuestbookRepository {
 		
 		sw.stop();
 		Long totalTime = sw.getTotalTimeMillis();
-		System.out.println("[Execution Time] [GuestbookRepositroy.findAll]" + totalTime + "millis");
+//		System.out.println("[Execution Time] [GuestbookRepositroy.findAll]" + totalTime + "millis");
 		return list;
 	}
 	

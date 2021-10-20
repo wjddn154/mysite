@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.omg.CORBA.UserException;
 import org.springframework.stereotype.Repository;
 
 import com.douzone.mysite.exception.UserRepositoryException;

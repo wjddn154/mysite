@@ -24,9 +24,6 @@ public class GlobalExceptionHandler {
 		LOGGER.error(errors.toString());
 		
 		
-		// 2.
-		
-		
 		//2. 요청 구분
 		
 		//3. 사과 페이지(정상종료)
