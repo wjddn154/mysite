@@ -8,17 +8,19 @@
   <artifactId>mysite03</artifactId>
   <packaging>war</packaging>
   
-  <properties>
-		<org.springframework-version>4.3.4.RELEASE</org.springframework-version>
-	</properties>
+   <properties>
+      <org.springframework-version>4.3.4.RELEASE</org.springframework-version>
+      <jcloverslf4j.version>1.7.6</jcloverslf4j.version>
+      <logback.version>1.1.1</logback.version>
+   </properties>
 
 	<dependencies>
-		<!-- Spring Context(Container) -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${org.springframework-version}</version>
-		</dependency>
+      <!-- Spring Context(Container) -->
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-context</artifactId>
+         <version>${org.springframework-version}</version>
+      </dependency>
 
 		<!-- Spring MVC -->
 		<dependency>
@@ -34,6 +36,13 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
+		<!-- Spring Aspect(AOP Library) -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>	
+
 		<!-- jstl -->
 		<dependency>
 			<groupId>jstl</groupId>
@@ -47,6 +56,18 @@
 			<artifactId>mariadb-java-client</artifactId>
 			<version>2.7.2</version>
 		</dependency>
+
+      <!-- logback(slf4j) -->
+      <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>jcl-over-slf4j</artifactId>
+         <version>${jcloverslf4j.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>ch.qos.logback</groupId>
+         <artifactId>logback-classic</artifactId>
+         <version>${logback.version}</version>
+      </dependency>
 
 		<!-- Servlet -->
 		<dependency>
