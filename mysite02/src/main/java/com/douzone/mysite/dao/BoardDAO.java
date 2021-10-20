@@ -27,7 +27,7 @@ public class BoardDAO {
 	
 	
 	//join된 결과를 표시하기 위해 dto 사용
-	public List<BoardDTO> findAll(Long pageNo) {
+	public List<BoardDTO> findAll(Long pageNo, String findkey, int pageSize) {
 		List<BoardDTO> list = new ArrayList<>();
 		
 		Connection conn = null;
@@ -41,11 +41,13 @@ public class BoardDAO {
 				"select b.no, b.title, b.contents, b.hit, b.reg_date, b.group_no, b.order_no, b.depth, b.user_no, u.name" +
 				"  from board b, user u" +
 				" where b.user_no = u.no" +
+				"   and b.title like concat('%', ?, '%')" +
 				" order by b.group_no desc, b.order_no desc, b.depth" +
 				" limit ?, ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setLong(1, (pageNo-1) * 10);
-			pstmt.setLong(2, (pageNo) * 10);
+			pstmt.setString(1, findkey);
+			pstmt.setLong(2, (pageNo-1) * pageSize);
+			pstmt.setLong(3, pageSize);
 
 			rs = pstmt.executeQuery();
 			
@@ -482,7 +484,7 @@ public class BoardDAO {
 	
 	
 	//전체 게시글 수
-	public int countBoard() {
+	public int countBoard(String findkey) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -493,8 +495,11 @@ public class BoardDAO {
 			
 			String sql =
 				"select count(*)" +
-				"  from board";
+				"  from board" +
+				" where title like concat('%', ?, '%')";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, findkey);
+
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {

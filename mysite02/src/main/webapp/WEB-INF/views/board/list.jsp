@@ -3,8 +3,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-
-
+<%-- <fmt:parseDate var="parseDateValue" value="${regDate }"  pattern="yyyy.MM.dd HH:mm:ss" /> --%>
+<%-- <fmt:formatDate var="parseRegDate" value="${parseDateValue }" pattern="yyyy-MM-dd HH:mm:ss" /> --%>
 
 
 <!DOCTYPE html>
@@ -19,8 +19,8 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp"/>
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="${pageContext.request.contextPath }/board" method="post">
-					<input type="text" id="kwd" name="kwd" value="">
+				<form id="search_form" action="${pageContext.request.contextPath }/board?pageno=1" method="post">
+					<input type="text" id="kwd" name="kwd" value="${findkey}">
 					<input type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
@@ -69,6 +69,7 @@
 								<c:when test='${vo.hit != -1 }'>
 									<td>${vo.userName }</td>
 									<td>${vo.hit }</td>
+<%-- 									<td>${parseRegDate }</td> --%>
 									<td>${vo.regDate }</td>
 								</c:when>
 								<c:otherwise>
@@ -104,23 +105,25 @@
 		
 				<div class="pager">
 					<ul>
-					    <li><a href="${pageContext.request.contextPath }/board?pageno=${page.firstPageNo}" class="first">처음 페이지</a></li>
-					    
-<%-- 					    <c:if test='${param.pageno} !=  }'} --%>
-					    	<li><a href="${pageContext.request.contextPath }/board?pageno=${page.prevPageNo}" class="prev">이전 페이지</a></li>
-<%-- 					    </c:if> --%>
+   						<c:if test='${param.pageno != page.firstPageNo}' >
+					    	<li><a href="${pageContext.request.contextPath }/board?pageno=${page.firstPageNo}&kwd=${findkey}" class="first">◀</a></li>
+					    	<li><a href="${pageContext.request.contextPath }/board?pageno=${page.prevPageNo}&kwd=${findkey}" class="prev">◁</a></li>
+ 					    </c:if>
 					        <c:forEach var="i" begin="${page.startPageNo}" end="${page.endPageNo}" step="1">
 					            <c:choose>
-					                <c:when test="${i eq page.pageNo}">
-					                	<li><a href="${pageContext.request.contextPath }/board?pageno=${i}" class="choice">${i}</a></li>
+					                <c:when test="${i == param.pageno}">
+					                	<li style='color:red'>${i}</li>
+<%-- 					                	<li ><a href="${pageContext.request.contextPath }/board?pageno=${i}" class="choice" style='color:red'>${i}</a></li> --%>
 					                </c:when>
 					                <c:otherwise>
-					                	<li><a href="${pageContext.request.contextPath }/board?pageno=${i}">${i}</a></li>
+					                	<li><a href="${pageContext.request.contextPath }/board?pageno=${i}&kwd=${findkey}">${i}</a></li>
 					                </c:otherwise>
 					            </c:choose>
 					        </c:forEach>
-					    <li><a href="${pageContext.request.contextPath }/board?pageno=${page.nextPageNo}" class="next">다음 페이지</a></li>
-					    <li><a href="${pageContext.request.contextPath }/board?pageno=${page.finalPageNo}" class="last">마지막 페이지</a></li>
+  						<c:if test='${param.pageno != page.finalPageNo}' >
+						    <li><a href="${pageContext.request.contextPath }/board?pageno=${page.nextPageNo}&kwd=${findkey}" class="next">▷</a></li>
+						    <li><a href="${pageContext.request.contextPath }/board?pageno=${page.finalPageNo}&kwd=${findkey}" class="last">▶</a></li>
+						</c:if>
 				    </ul>
 				</div>
 

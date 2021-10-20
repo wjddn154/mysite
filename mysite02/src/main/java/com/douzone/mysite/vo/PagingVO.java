@@ -1,4 +1,4 @@
-package com.douzone.mysite.board.paging;
+package com.douzone.mysite.vo;
 
 public class PagingVO {
     private int pageSize; // 게시 글 수
@@ -68,7 +68,6 @@ public class PagingVO {
 	}
 	
 	
-	
 	//페이지 생성
 	private void makePaging() {
 		if (this.totalCount == 0) return; // 게시 글 전체 수가 없는 경우
@@ -108,7 +107,6 @@ public class PagingVO {
         }
 
         this.setFinalPageNo(finalPage); // 마지막 페이지 번호
-
 		
 	}
 	
