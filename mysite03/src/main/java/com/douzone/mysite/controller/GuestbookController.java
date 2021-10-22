@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.douzone.mysite.security.Auth;
 import com.douzone.mysite.service.GuestbookService;
 import com.douzone.mysite.vo.GuestbookVO;
 
@@ -20,7 +21,7 @@ public class GuestbookController {
 	@Autowired
 	private GuestbookService guestbookService;
 	
-	
+	@Auth
 	@RequestMapping(value="")
 	public String index(Model model) {
 		List<GuestbookVO> list = guestbookService.getList();
