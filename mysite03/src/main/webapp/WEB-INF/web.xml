@@ -15,7 +15,6 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-
 	<!-- Encoding Filter -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -30,7 +29,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-
 	<!-- Dispatcher Servlet -->
 	<servlet>
 		<servlet-name>spring</servlet-name>
@@ -42,18 +40,16 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>	
 	
-	
 	<!-- 공통 에러 페이지 -->
 	<error-page>
 		<error-code>404</error-code>
 		<location>/WEB-INF/views/error/404.jsp</location>
 	</error-page>
-	
+
 	<error-page>
 		<error-code>500</error-code>
 		<location>/WEB-INF/views/error/500.jsp</location>
 	</error-page>
-	
 	
 	<!-- welcome(default) 페이지 -->
 	<welcome-file-list>

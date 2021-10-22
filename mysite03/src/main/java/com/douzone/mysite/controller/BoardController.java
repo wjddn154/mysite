@@ -33,7 +33,7 @@ public class BoardController {
 		Map<String, Object> map = boardService.getContentsList( page, keyword );
 		model.addAttribute("map", map);
 		//model.addAllAttributes(map);
-		
+
 		return "board/index";
 	}
 	
@@ -41,6 +41,7 @@ public class BoardController {
 	public String view( @PathVariable( "no" ) Long no, Model model ) {
 		BoardVO boardVo = boardService.getContents( no );
 		model.addAttribute( "boardVo", boardVo );
+		
 		return "board/view";
 	}
 	

@@ -14,9 +14,12 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board?a=addreplyform&no=${check}">
-					<input type = "hidden" name = "a" value="write">
-					<table class="tbl-ex">
+				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/write">
+					<input type="hidden" name="groupNo" value="${boardVo.groupNo }">
+					<input type="hidden" name="orderNo" value="${boardVo.orderNo }">
+					<input type="hidden" name="depth" value="${boardVo.depth }">
+					<input type="hidden" name="p" value="${param.p }" />
+					<input type="hidden" name="kwd" value="${param.kwd }" />					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">답글 쓰기</th>
 						</tr>
@@ -27,12 +30,12 @@
 						<tr>
 							<td class="label">내용</td>
 							<td>
-								<textarea id="content" name="content"></textarea>
+								<textarea id="content" name="contents"></textarea>
 							</td>
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="${pageContext.request.contextPath }/board">취소</a>
+						<a href="${pageContext.request.contextPath }/board?p=${param.p }&kwd=${param.kwd }">취소</a>
 						<input type="submit" value="등록">
 					</div>
 				</form>				

@@ -3,12 +3,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%-- <fmt:parseDate var="parseDateValue" value="${regDate }"  pattern="yyyy.MM.dd HH:mm:ss" /> --%>
-<%-- <fmt:parseDate var="parseRegDate" value="${ todo.regDate }" pattern="yyyy-MM-dd HH:MM:SS" /> --%>
-
-<%-- <fmt:formatDate var="parseRegDate" value="${parseDateValue }" pattern="yyyy-MM-dd HH:mm:ss" /> --%>
-
-
 <!DOCTYPE html>
 <html>
 <head>
