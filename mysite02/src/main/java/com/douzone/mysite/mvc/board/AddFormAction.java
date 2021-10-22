@@ -38,7 +38,7 @@ public class AddFormAction implements Action {
 		
 		new BoardDAO().insert(vo);
 		
-		MvcUtil.redirect(request.getContextPath() + "/board", request, response);
+		MvcUtil.redirect(request.getContextPath() + "/board?pageno=1", request, response);
 	}
 
 }

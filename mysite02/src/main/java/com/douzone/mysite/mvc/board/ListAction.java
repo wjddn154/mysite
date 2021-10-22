@@ -28,7 +28,7 @@ public class ListAction implements Action {
         PagingVO pageVO = new PagingVO();
         int no = new BoardDAO().countBoard(findKey);
         pageVO.setPageNo(pageNo.intValue());	//현재 페이지
-        pageVO.setPageSize(3);	// 페이지 사이즈 설정
+        pageVO.setPageSize(10);	// 페이지 사이즈 설정
         pageVO.setTotalCount(no);
 
         //리스트

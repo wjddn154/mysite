@@ -4,6 +4,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%-- <fmt:parseDate var="parseDateValue" value="${regDate }"  pattern="yyyy.MM.dd HH:mm:ss" /> --%>
+<%-- <fmt:parseDate var="parseRegDate" value="${ todo.regDate }" pattern="yyyy-MM-dd HH:MM:SS" /> --%>
+
 <%-- <fmt:formatDate var="parseRegDate" value="${parseDateValue }" pattern="yyyy-MM-dd HH:mm:ss" /> --%>
 
 
@@ -69,8 +71,7 @@
 								<c:when test='${vo.hit != -1 }'>
 									<td>${vo.userName }</td>
 									<td>${vo.hit }</td>
-<%-- 									<td>${parseRegDate }</td> --%>
-									<td>${vo.regDate }</td>
+									<td>${fn:substring(vo.regDate,0,19)}</td>
 								</c:when>
 								<c:otherwise>
 									<td></td>

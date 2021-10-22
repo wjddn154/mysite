@@ -42,7 +42,7 @@ public class ModifyAction implements Action {
 		new BoardDAO().update(vo);
 		
 		
-		MvcUtil.redirect(request.getContextPath() + "/board", request, response);
+		MvcUtil.redirect(request.getContextPath() + "/board?pageno=1", request, response);
 	}
 
 }

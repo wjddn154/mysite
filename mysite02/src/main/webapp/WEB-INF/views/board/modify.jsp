@@ -21,12 +21,12 @@
 						</tr>
 						<tr>
 							<td class="label">제목</td>
-							<td><input type="text" name="title" value='${dto.title }'></td>
+							<td><input type="text" name="title" required="required" value='${dto.title }'></td>
 						</tr>
 						<tr>
 							<td class="label">내용</td>
 							<td>
-								<textarea id="content" name="content">
+								<textarea id="content" name="content" required="required">
 									${dto.contents }
 								</textarea>
 							</td>

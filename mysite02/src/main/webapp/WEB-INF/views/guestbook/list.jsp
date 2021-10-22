@@ -19,12 +19,12 @@
 					<input type="hidden" name="a" value="add">
 					<table>
 						<tr>
-							<td>이름</td><td><input type="text" name="name"></td>
-							<td>비밀번호</td><td><input type="password" name="password"></td>
+							<td>이름</td><td><input type="text" name="name" required="required"></td>
+							<td>비밀번호</td><td><input type="password" name="password" required="required"></td>
 						</tr>
 						<tr>
 							<td colspan=4>
-								<textarea name="message" id="content"></textarea>
+								<textarea name="message" id="content" required="required"></textarea>
 							</td>
 						</tr>
 						<tr>
