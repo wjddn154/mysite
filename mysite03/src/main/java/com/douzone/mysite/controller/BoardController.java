@@ -45,7 +45,7 @@ public class BoardController {
 		return "board/view";
 	}
 	
-
+	@Auth(role = "USER")
 	@RequestMapping( "/delete/{no}" )
 	public String delete(
 		@AuthUser UserVO authUser,
@@ -63,7 +63,9 @@ public class BoardController {
 		@AuthUser UserVO authUser,
 		@PathVariable( "no" ) Long no,
 		Model model) {
-		
+		System.out.println("authUser.getNo() : " + authUser.getNo());
+		System.out.println("no : " + no);
+
 		BoardVO boardVo = boardService.getContents(no, authUser.getNo() );
 		model.addAttribute( "boardVo", boardVo );
 		return "board/modify";

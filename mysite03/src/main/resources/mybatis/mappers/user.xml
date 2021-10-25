@@ -19,7 +19,7 @@
 
 	<select id="findByEmailAndPassword" parameterType="map" resultType="uservo">
 		<![CDATA[
-		select no, name, role
+		select no, name, role, email, password, gender, join_date
 		  from user
 		 where email=#{e }
 		   and password=#{p }
