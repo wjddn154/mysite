@@ -36,4 +36,8 @@ public class UserRepository {
 		int count = sqlSession.update("user.update", vo);
 		return count == 1;
 	}
+
+	public UserVO findByEmail(String email) {
+		return sqlSession.selectOne("user.findByEmail", email);
+	}
 }

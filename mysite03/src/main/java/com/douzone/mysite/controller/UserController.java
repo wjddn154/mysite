@@ -1,7 +1,5 @@
 package com.douzone.mysite.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,6 +42,7 @@ public class UserController {
 	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.GET)
 	public String update(@AuthUser UserVO authUser, Model model) {
+		System.out.println(authUser.getNo());
 		UserVO userVo = userService.getUser(authUser.getNo());
 		model.addAttribute("userVo", userVo);
 		
@@ -55,10 +54,10 @@ public class UserController {
 	public String update(@AuthUser UserVO authUser, UserVO userVo) {
 		userVo.setNo(authUser.getNo());
 		userService.updateUser(userVo);
-		
 		authUser.setName(userVo.getName());
 		
 		return "redirect:/user/update";
-	}	
+	}
+	
 	
 }

@@ -18,6 +18,10 @@ public class UserService {
 	public UserVO getUser(Long no) {
 		return userRepository.findByNo(no);
 	}
+	
+	public UserVO getUser(String email) {
+		return 	userRepository.findByEmail(email);
+	}
 
 	public UserVO getUser(String email, String password) {
 		return userRepository.findByEmailAndPassword(email, password);
@@ -25,8 +29,9 @@ public class UserService {
 
 	public void updateUser(UserVO userVo) {
 		userRepository.update(userVo);
-		
 	}
+
+
 	
 	
 }
