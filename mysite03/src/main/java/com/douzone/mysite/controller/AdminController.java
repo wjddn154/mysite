@@ -1,34 +1,48 @@
 package com.douzone.mysite.controller;
 
+import javax.servlet.ServletContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.douzone.mysite.security.Auth;
 
+@Auth(role="ADMIN")
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-
-	@Auth(role="ADMIN")
+	@Autowired
+	private ServletContext servletContext;
+	
+//	@RequestMapping("/main/update")
+//	public String main(SiteVO siteVO) {
+//		siteService.update(siteVO)
+//	}
+	
+//	SiteVO site = servletContext.getAttribute("site");
+//	if(site == null) {
+//		SiteVO vo = siteSetrvice.getSite();
+//		servletContext.setAttribute("site", vo);
+//	}
+	
 	@RequestMapping("")
 	public String main() {
+		System.out.println("2222222");
 		return "admin/main";
 	}
 	
-	@Auth(role="ADMIN")
 	@RequestMapping("/guestbook")
 	public String guestbook() {
 		return "admin/guestbook";
 	}
 	
-	@Auth(role="ADMIN")
 	@RequestMapping("/board")
 	public String board() {
 		
 		return "admin/board";
 	}
 	
-	@Auth(role="ADMIN")
 	@RequestMapping("/user")
 	public String user() {
 		

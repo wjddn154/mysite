@@ -39,8 +39,8 @@ public class BoardController {
 	
 	@RequestMapping( "/view/{no}" )
 	public String view( @PathVariable( "no" ) Long no, Model model ) {
-		BoardVO boardVo = boardService.getContents( no );
-		model.addAttribute( "boardVo", boardVo );
+		BoardVO boardVO = boardService.getContents( no );
+		model.addAttribute( "boardVO", boardVO );
 		
 		return "board/view";
 	}
@@ -63,11 +63,9 @@ public class BoardController {
 		@AuthUser UserVO authUser,
 		@PathVariable( "no" ) Long no,
 		Model model) {
-		System.out.println("authUser.getNo() : " + authUser.getNo());
-		System.out.println("no : " + no);
 
-		BoardVO boardVo = boardService.getContents(no, authUser.getNo() );
-		model.addAttribute( "boardVo", boardVo );
+		BoardVO boardVO = boardService.getContents(no, authUser.getNo() );
+		model.addAttribute( "boardVO", boardVO );
 		return "board/modify";
 	}
 
@@ -75,13 +73,16 @@ public class BoardController {
 	@RequestMapping( value="/modify", method=RequestMethod.POST )	
 	public String modify(
 		@AuthUser UserVO authUser,
-		@ModelAttribute BoardVO boardVo,
+		@ModelAttribute BoardVO boardVO,
 		@RequestParam( value="p", required=true, defaultValue="1") Integer page,
 		@RequestParam( value="kwd", required=true, defaultValue="") String keyword ) {
+
+		boardVO.setUserNo( authUser.getNo() );
+		System.out.println("boardVO : " + boardVO);
 		
-		boardVo.setUserNo( authUser.getNo() );
-		boardService.modifyContents( boardVo );
-		return "redirect:/board/view/" + boardVo.getNo() + 
+		boardService.modifyContents( boardVO );
+
+		return "redirect:/board/view/" + boardVO.getNo() + 
 				"?p=" + page + 
 				"&kwd=" + WebUtil.encodeURL( keyword, "UTF-8" );
 	}
@@ -96,13 +97,14 @@ public class BoardController {
 	@RequestMapping( value="/write", method=RequestMethod.POST )	
 	public String write(
 		@AuthUser UserVO authUser,
-		@ModelAttribute BoardVO boardVo,
+		@ModelAttribute BoardVO boardVO,
 		@RequestParam( value="p", required=true, defaultValue="1") Integer page,
 		@RequestParam( value="kwd", required=true, defaultValue="") String keyword ) {
+
+		boardVO.setUserNo( authUser.getNo() );
+		System.out.println("boardVO : " + boardVO);
 		
-		boardVo.setUserNo( authUser.getNo() );
-		boardService.addContents( boardVo );
-		
+		boardService.addContents( boardVO );
 		return	"redirect:/board?p=" + page + "&kwd=" + WebUtil.encodeURL( keyword, "UTF-8" );
 	}
 
@@ -110,11 +112,14 @@ public class BoardController {
 	@RequestMapping( value="/reply/{no}" )	
 	public String reply(@AuthUser UserVO authUser, @PathVariable( "no" ) Long no, Model model) {
 		
-		BoardVO boardVo = boardService.getContents( no );
-		boardVo.setOrderNo( boardVo.getOrderNo() + 1 );
-		boardVo.setDepth( boardVo.getDepth() + 1 );
+		System.out.println(no);
 		
-		model.addAttribute( "boardVo", boardVo );
+		BoardVO boardVO = boardService.getContents( no );
+		boardVO.setOrderNo( boardVO.getOrderNo() + 1 );
+		boardVO.setDepth( boardVO.getDepth() + 1 );
+		
+		System.out.println(boardVO);
+		model.addAttribute( "boardVO", boardVO );
 		
 		return "board/reply";
 	}	

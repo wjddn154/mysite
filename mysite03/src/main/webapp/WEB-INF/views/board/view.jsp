@@ -21,13 +21,13 @@
 					</tr>
 					<tr>
 						<td class="label">제목</td>
-						<td>${boardVo.title }</td>
+						<td>${boardVO.title }</td>
 					</tr>
 					<tr>
 						<td class="label">내용</td>
 						<td>
 							<div class="view-content">
-							${fn:replace(boardVo.contents, newLine, "<br>") }					
+							${fn:replace(boardVO.contents, newLine, "<br>") }					
 							</div>
 						</td>
 					</tr>
@@ -35,9 +35,9 @@
 				<div class="bottom">
 					<a href="${pageContext.request.contextPath }/board?p=${param.p }&kwd=${param.kwd }">글목록</a>
 					<c:if test="${ not empty authUser }">
-						<a href="${pageContext.request.contextPath }/board/reply/${boardVo.no }?p=${param.p }&kwd=${param.kwd }">답글 달기</a>
-						<c:if test="${authUser.no == boardVo.userNo }">
-							<a href="${pageContext.request.contextPath }/board/modify/${boardVo.no }?p=${param.p }&kwd=${param.kwd }">글수정</a>
+						<a href="${pageContext.request.contextPath }/board/reply/${boardVO.no }?p=${param.p }&kwd=${param.kwd }">답글 달기</a>
+						<c:if test="${authUser.no == boardVO.userNo }">
+							<a href="${pageContext.request.contextPath }/board/modify/${boardVO.no }?p=${param.p }&kwd=${param.kwd }">글수정</a>
 						</c:if>
 					</c:if>
 				</div>
