@@ -4,9 +4,15 @@ import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.douzone.mysite.security.Auth;
+import com.douzone.mysite.service.SiteService;
+import com.douzone.mysite.vo.SiteVO;
 
 @Auth(role="ADMIN")
 @Controller
@@ -14,6 +20,9 @@ import com.douzone.mysite.security.Auth;
 public class AdminController {
 	@Autowired
 	private ServletContext servletContext;
+	
+	@Autowired
+	private SiteService siteService;
 	
 //	@RequestMapping("/main/update")
 //	public String main(SiteVO siteVO) {
@@ -27,10 +36,23 @@ public class AdminController {
 //	}
 	
 	@RequestMapping("")
-	public String main() {
-		System.out.println("2222222");
+	public String main(Model model) {
+		SiteVO siteVO = siteService.getSite();
+		model.addAttribute( "siteVO", siteVO );
 		return "admin/main";
 	}
+	
+
+	@RequestMapping("/main/update")
+	public String modify(
+			@ModelAttribute SiteVO siteVO,
+			@RequestParam("file") MultipartFile file) {
+		
+		siteService.modifySite( siteVO, file );
+		
+		return "redirect:/admin";
+	}
+	
 	
 	@RequestMapping("/guestbook")
 	public String guestbook() {
