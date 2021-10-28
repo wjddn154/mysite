@@ -16,8 +16,8 @@ import com.douzone.mysite.dto.JsonResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ControllerAdvice
-public class GlobalExceptionHandler {
-	private static final Log LOGGER = LogFactory.getLog(GlobalExceptionHandler.class);
+public class ControllerExceptionHandler {
+	private static final Log LOGGER = LogFactory.getLog(ControllerExceptionHandler.class);
 	
 	@ExceptionHandler(Exception.class)
 	public void HandlerException(HttpServletRequest request, HttpServletResponse response, Exception e) throws Exception {

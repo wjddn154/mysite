@@ -1,7 +1,7 @@
 package com.douzone.config.web;
 
 import java.nio.charset.Charset;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,8 +10,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -29,8 +31,20 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setPrefix("/WEB-INF/views/");
 		viewResolver.setSuffix(".jsp");
 		
-		return null;
+		return viewResolver;
 	}
+	
+/*
+	<!-- ViewResolver -->
+	<bean id="viewResolver"	class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+*/
+	
+	
 
 	//Message Converter
 	@Bean
@@ -41,20 +55,26 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		messageConverter.setSupportedMediaTypes(
 					Arrays.asList(new MediaType("text", "html", Charset.forName("UTF-8")))
 				);
-		
 		return messageConverter;
 	}
 	
 	@Bean
 	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
-		MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
-		mappingJackson2HttpMessageConverter.setSupportedMediaTypes(
+		
+		Jackson2ObjectMapperBuilder builder 
+			= new Jackson2ObjectMapperBuilder()
+				.indentOutput(true)
+				.dateFormat(new SimpleDateFormat("yyyy-mm-dd"));
+		
+		MappingJackson2HttpMessageConverter messageConverter
+			= new MappingJackson2HttpMessageConverter(builder.build());
+		
+		messageConverter.setSupportedMediaTypes(
 					Arrays.asList(new MediaType("application", "json", Charset.forName("UTF-8")))
 				);
 		
-		return mappingJackson2HttpMessageConverter;
+		return messageConverter;
 	}
-	
 	
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -63,22 +83,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		
 	}
 	
-	
-	
-	
-}
-
-
-/*
-	<!-- ViewResolver -->
-	<bean id="viewResolver"	class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.JstlView" />
-		<property name="prefix" value="/WEB-INF/views/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
-*/
-
 /*
 	<bean class="org.springframework.http.converter.StringHttpMessageConverter">
 	<property name="supportedMediaTypes">
@@ -95,3 +99,25 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 	</property>
 	</bean>
 */
+	
+	
+	//Default Servlet Handler
+	@Override
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		configurer.enable();
+		
+	}
+	
+/*
+ 	<mvc:default-servlet-handler />
+ */
+	
+	
+	
+	
+	
+}
+
+
+
+

@@ -49,7 +49,7 @@ $(function(){
 		<div id="content">
 			<div id="gallery">
 				<div>
-					<h1 style="background: url('${pageContext.request.contextPath }/assets/images/gallery.png') 0 0 no-repeat">갤러리</h1>
+					<h1 style="background: url('${pageContext.request.contextPath }/assets/images/gallery.png') no-repeat 0 0 / 35px">갤러리</h1>
 					<a href="" id="upload-image">이미지 올리기</a>
 				</div>
 				<ul>
@@ -60,7 +60,7 @@ $(function(){
 								class="image"
 								style="background-image:url('${pageContext.request.contextPath }${vo.url }">&nbsp;</a>
 								
-							<a  style="background: url('${pageContext.request.contextPath }/assets/images/delete-image.png') 0 0 no-repeat"
+							<a	style="background: url('${pageContext.request.contextPath }/assets/images/delete-image.png') no-repeat 0 0 / 18px"
 								href="${pageContext.request.contextPath }/gallery/delete/${vo.no }"
 								class="del-button"
 								title="삭제">삭제</a>

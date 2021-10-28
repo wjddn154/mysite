@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.douzone.mysite.security.Auth;
+import com.douzone.mysite.service.FileUploadService;
 import com.douzone.mysite.service.SiteService;
 import com.douzone.mysite.vo.SiteVO;
 
@@ -24,16 +25,9 @@ public class AdminController {
 	@Autowired
 	private SiteService siteService;
 	
-//	@RequestMapping("/main/update")
-//	public String main(SiteVO siteVO) {
-//		siteService.update(siteVO)
-//	}
+	@Autowired
+	private FileUploadService fileUploadService;
 	
-//	SiteVO site = servletContext.getAttribute("site");
-//	if(site == null) {
-//		SiteVO vo = siteSetrvice.getSite();
-//		servletContext.setAttribute("site", vo);
-//	}
 	
 	@RequestMapping("")
 	public String main(Model model) {
@@ -48,7 +42,16 @@ public class AdminController {
 			@ModelAttribute SiteVO siteVO,
 			@RequestParam("file") MultipartFile file) {
 		
-		siteService.modifySite( siteVO, file );
+		try {
+			String profile = fileUploadService.restoreImage(file);
+			siteVO.setProfile(profile);
+		} catch(Exception e) {
+			System.out.println("이미지가 없어서 기존 이미지 사용");
+		}
+		
+		System.out.println("siteVO : " + siteVO);
+		siteService.modifySite(siteVO);
+		servletContext.setAttribute("siteVO", siteVO);
 		
 		return "redirect:/admin";
 	}
