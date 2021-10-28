@@ -17,9 +17,7 @@ public class SiteRepository {
 		return sqlSession.selectOne("site.findSite");
 	}
 
-	/* 여기서 부터 해야함 */
-	//file 넘겨주기 
-	public int update(SiteVO siteVO, MultipartFile file) {
+	public int update(SiteVO siteVO) {
 		
 		return sqlSession.update( "site.update", siteVO );
 	}

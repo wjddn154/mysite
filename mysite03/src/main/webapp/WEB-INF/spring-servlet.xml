@@ -44,11 +44,12 @@
 	<!-- 서블릿 컨테이너(tomcat)의 DefaultServlet 위임(Delegate) Handler -->
 	<mvc:default-servlet-handler />
 
-	<!-- mvc url-resource mapping -->
-	<mvc:resources mapping="/gallery/images/**"	location="file:/upload-mysite/" />
-
 	<!-- Interceptors -->
 	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.douzone.mysite.interceptor.SiteInterceptor" />
+		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/user/auth"/>
 			<bean class="com.douzone.mysite.security.LoginInterceptor" />
@@ -83,12 +84,12 @@
 		<!-- defaultEncoding -->
 		<property name="defaultEncoding" value="utf-8" />
 	</bean>
+
+	<!-- mvc url-resource mapping -->
+	<mvc:resources mapping="/gallery/images/**"	location="file:/upload-mysite/" />
 	
 	 <!-- MessageSource -->
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-	   <property name="defaultEncoding">
-	   		<value>UTF-8</value>
-	   </property>
 	   <property name="basenames">
 	      <list>
 			<value>messages/messages_ko</value>

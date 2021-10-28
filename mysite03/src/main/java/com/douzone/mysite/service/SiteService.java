@@ -2,7 +2,6 @@ package com.douzone.mysite.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.douzone.mysite.repository.SiteRepository;
 import com.douzone.mysite.vo.SiteVO;
@@ -10,6 +9,7 @@ import com.douzone.mysite.vo.SiteVO;
 @Service
 public class SiteService {
 
+	
 	@Autowired
 	private SiteRepository siteRepository;
 
@@ -20,10 +20,12 @@ public class SiteService {
 	}
 
 	
-	public boolean modifySite(SiteVO siteVO, MultipartFile file) {
-		int count = siteRepository.update( siteVO, file );
+	public boolean modifySite(SiteVO siteVO) {
+		
+		int count = siteRepository.update( siteVO );
 		return count == 1;
 	}
+
 	
 	
 }
