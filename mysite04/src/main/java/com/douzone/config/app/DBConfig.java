@@ -3,25 +3,32 @@ package com.douzone.config.app;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 
 @Configuration
+@PropertySource("classpath:com/douzone/mysite/config/app/jdbc.properties")
 public class DBConfig {
+	
+	@Autowired
+	private Environment env;
 	
 	@Bean
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/webdb?characterEncoding=utf8");
-		dataSource.setUsername("webdb");
-		dataSource.setPassword("webdb");
-		dataSource.setInitialSize(100);	//connection pool에 connection을 몇개 줄 것인가
-		dataSource.setMaxActive(200);	//최대 connection?
+		dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
+		dataSource.setUrl(env.getProperty("jdbc.url"));
+		dataSource.setUsername(env.getProperty("jdbc.username"));
+		dataSource.setPassword(env.getProperty("jdbc.password"));
+		dataSource.setInitialSize(env.getProperty("jdbc.initialSize", Integer.class));	//connection pool에 connection을 몇개 줄 것인가
+		dataSource.setMaxActive(env.getProperty("jdbc.maxActive", Integer.class));	//최대 connection?
 		
 		return dataSource;
 	}
-	//AppConfig.java에서 땡겨서 작업함
+	//이후, AppConfig.java에서 땡겨서 작업함
 	
 	//XML 버전 동일 작업
 //	<!-- Connection Pool DataSource-->
