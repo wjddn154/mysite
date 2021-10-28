@@ -69,18 +69,21 @@ $(function(){
 				</ul>	
 			</div>
 
-			<div id="dialog-upload-form" title="이미지 업로드" style="display:none">
-  				<p class="validateTips normal">이미지와 간단한 코멘트를 입력해 주세요.</p>
-  				<form action="${pageContext.request.contextPath }/gallery/upload" 
-  					  method="post"
-  					  enctype="multipart/form-data">
-					<label>코멘트</label>
-					<input type="text" id="input-comments" name="comments" value="">
-					<label>이미지</label>
-					<input type="file" id="input-file" name="file">
-					<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-  				</form>
-			</div>
+			<!-- ADMIN일때만 -->
+			<c:if test='true'>
+				<div id="dialog-upload-form" title="이미지 업로드" style="display:none">
+	  				<p class="validateTips normal">이미지와 간단한 코멘트를 입력해 주세요.</p>
+	  				<form action="${pageContext.request.contextPath }/gallery/upload" 
+	  					  method="post"
+	  					  enctype="multipart/form-data">
+						<label>코멘트</label>
+						<input type="text" id="input-comments" name="comments" value="">
+						<label>이미지</label>
+						<input type="file" id="input-file" name="file">
+						<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+	  				</form>
+				</div>
+			</c:if>
 		</div>
 		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
