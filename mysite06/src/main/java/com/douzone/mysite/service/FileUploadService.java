@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Calendar;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,8 +13,6 @@ import com.douzone.mysite.exception.FileUploadException;
 
 @Service
 public class FileUploadService {
-	@Autowired
-	private Environment env;
 	
 	private static String SAVE_PATH = "/upload-mysite";
 	private static String URL_BASE = "/upload/images";	

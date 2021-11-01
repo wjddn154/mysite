@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-
 	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<charset>UTF-8</charset>
@@ -27,15 +26,13 @@
 			<MaxFileSize>50KB</MaxFileSize>
 		</triggeringPolicy>
 	</appender>
-	
 
 	<logger name="com.douzone.mysite.exception" level="error" additivity="false">
-        	<appender-ref ref="consoleAppender" />
-            <appender-ref ref="fileAppender" />
+		<appender-ref ref="consoleAppender" />
+        <appender-ref ref="fileAppender" />
     </logger>
-    
 	
-	<root level="warn">
+	<root level="info">
 		<appender-ref ref="consoleAppender" />
 	</root>
 
