@@ -1,7 +1,7 @@
 # active spring boot profile
 spring:
    profile:
-      active: dev     
+      active: dev
 
 ---
 # common - spring configuration
@@ -56,7 +56,7 @@ spring:
       username: webdb
       password: blahblha#!@0909#@!
       initialSize: 10
-      maxActive: 20   
+      maxActive: 20
 
 ---
 # dev profile - spring boot configuration
