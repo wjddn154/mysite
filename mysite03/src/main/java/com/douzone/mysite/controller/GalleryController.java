@@ -28,10 +28,18 @@ public class GalleryController {
 		return "gallery/index";
 	}
 	
+
+	@RequestMapping("/spa")
+	public String spa() {
+		return "guestbook/index-spa";
+	}
+	
+	
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public String upload(
 		@RequestParam("file") MultipartFile file,
 		@RequestParam(value="comments", required=true, defaultValue="") String comments) {
+		
 		galleryService.saveImage(file, comments);
 		return "redirect:/gallery";
 	}

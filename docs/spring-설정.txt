@@ -15,3 +15,5 @@
 7. views/*.jsp 파일 정리
 8. controller, service, repository 소스 코드 작업
 	
+java -Dspring.profile.active=production -jar mysite.jar
+	
