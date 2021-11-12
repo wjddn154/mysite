@@ -12,19 +12,22 @@ public class GuestbookRepository {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<GuestbookVO> findAll() throws GuestbookRepositoryException {
-		return sqlSession.selectList("guestbook.findAll");
+	public List<GuestbookVO> getList() throws GuestbookRepositoryException {
+		return sqlSession.selectList("guestbook.getList");
 	}
 	
 	public boolean delete(GuestbookVO vo) {
 		int count = sqlSession.delete("guestbook.delete", vo);
 		return count == 1;		
-
 	}
 	
 	public boolean insert(GuestbookVO vo) {
 		int count = sqlSession.insert("guestbook.insert", vo);
 		System.out.println(vo);
 		return count == 1;
+	}
+
+	public List<GuestbookVO> findAll(Long no) throws GuestbookRepositoryException {
+		return sqlSession.selectList("guestbook.findAll", no);
 	}
 }

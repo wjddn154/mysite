@@ -24,12 +24,35 @@
 		]]>
 	</delete>
 	
-	<select id="findAll" resultType="guestbookvo">
+	<select id="getList" resultType="guestbookvo">
 		<![CDATA[
 		  select no, name, date_format(reg_date, '%Y/%m/%d %H:%i:%s') as regDate, message
 		    from guestbook
 		order by reg_date desc
 		]]>
+	</select>
+	
+	
+	
+	<select id="findAll" parameterType="long" resultType="guestbookvo">
+		<choose>
+			<when test="_parameter == -1">
+				<![CDATA[
+				  select no, name, date_format(reg_date, '%Y/%m/%d %H:%i:%s') as regDate, message
+				    from guestbook
+				order by reg_date desc
+				limit 0,5
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+				  select no, name, date_format(reg_date, '%Y/%m/%d %H:%i:%s') as regDate, message
+				    from guestbook
+				   where no= #{no}
+				order by reg_date desc
+				]]>
+			</otherwise>
+		</choose>
 	</select>
 
 </mapper>
