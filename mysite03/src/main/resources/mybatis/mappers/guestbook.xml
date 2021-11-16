@@ -32,6 +32,14 @@
 		]]>
 	</select>
 	
+	<select id="findByNoAndUserNo" resultType="Long">
+		<![CDATA[
+		  select no
+		    from guestbook
+		order by reg_date asc
+        	limit 1;
+		]]>
+	</select>
 	
 	
 	<select id="findAll" parameterType="long" resultType="guestbookvo">
@@ -48,8 +56,9 @@
 				<![CDATA[
 				  select no, name, date_format(reg_date, '%Y/%m/%d %H:%i:%s') as regDate, message
 				    from guestbook
-				   where no= #{no}
+				   where no < #{no}
 				order by reg_date desc
+				limit 1;
 				]]>
 			</otherwise>
 		</choose>

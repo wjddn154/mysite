@@ -30,7 +30,9 @@ public class GuestbookController {
 	}
 
 	@RequestMapping("/spa")
-	public String spa() {
+	public String spa(Model model) {
+		Long no = guestbookService.getLastNo();
+		model.addAttribute("no", no);
 		return "guestbook/index-spa";
 	}
 	

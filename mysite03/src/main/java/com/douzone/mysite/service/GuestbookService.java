@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.douzone.mysite.repository.GuestbookRepository;
+import com.douzone.mysite.vo.BoardVO;
 import com.douzone.mysite.vo.GuestbookVO;
 
 @Service
@@ -35,6 +36,10 @@ public class GuestbookService {
 
 	public List<GuestbookVO> findAll(Long no) {
 		return guestbookRepository.findAll(no);
+	}
+
+	public Long getLastNo() {
+		return guestbookRepository.findLastNo();
 	}
 	
 }

@@ -30,4 +30,8 @@ public class GuestbookRepository {
 	public List<GuestbookVO> findAll(Long no) throws GuestbookRepositoryException {
 		return sqlSession.selectList("guestbook.findAll", no);
 	}
+
+	public Long findLastNo() {
+		return sqlSession.selectOne( "guestbook.findByNoAndUserNo" );
+	}
 }

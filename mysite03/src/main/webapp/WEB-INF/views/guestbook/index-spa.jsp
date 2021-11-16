@@ -38,7 +38,7 @@ var listEJS = new EJS({
 var startNo;
 var fetch = function() {
 	var url = '${pageContext.request.contextPath }/api/guestbook/list' + (startNo ? ('?sn=' + startNo) : '');
-// 	console.log(url);
+	console.log(url);
 	
 	$.ajax({
 		url: url,
@@ -180,9 +180,13 @@ $(function(){
 		var windowHeight = $window.height();
 		var documentHeight = $document.height();
 		var scrollTop = $window.scrollTop();
-		
+		var lastNo = $("#checkLastNo").val();
 		if(scrollTop + windowHeight + 10 > documentHeight) {
-			fetch();
+			if(startNo == lastNo) {
+				return false;
+			} else {
+				fetch();
+			}
 			console.log("fetch() call");
 		}
 	});
@@ -196,6 +200,7 @@ $(function(){
 <body>
 	<div id="container">
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
+		<input type="hidden" id="checkLastNo" value=${no }>
 		<div id="content">
 			<div id="guestbook">
 				<h1>방명록</h1>
